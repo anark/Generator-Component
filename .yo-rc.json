@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Andrew Narkewicz",
+      "authorEmail": "anark6@gmail.com",
+      "authorUrl": ""
+    }
+  }
+}
