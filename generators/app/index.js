@@ -7,16 +7,16 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.argument("componentName", { type: String, required: false });
+    this.argument("component", { type: String, required: false });
     this.option("mdx");
   }
 
   Prompting() {
-    if (!this.options.componentName) {
+    if (!this.options.component) {
       const prompts = [
         {
           type: "input",
-          name: "componentName",
+          name: "component",
           required: true,
           message: "Would you like to name the component(eg. Hero)"
         },
@@ -35,11 +35,12 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const { componentName, mdx } = this.options.componentName
+    const { component, mdx } = this.options.component
       ? this.options
       : this.props;
 
-    const componentPath = `app/javascript/components/${componentName}`;
+    const componentPath = `app/javascript/components/${component}`;
+    const componentName = component.split("/").pop();
 
     this.fs.copyTpl(
       this.templatePath("component.tsx"),
@@ -57,7 +58,8 @@ module.exports = class extends Generator {
         this.templatePath("stories.mdx"),
         this.destinationPath(`${componentPath}/${componentName}.stories.mdx`),
         {
-          componentName
+          componentName,
+          componentPath: component
         }
       );
     } else {
@@ -65,7 +67,8 @@ module.exports = class extends Generator {
         this.templatePath("stories.tsx"),
         this.destinationPath(`${componentPath}/${componentName}.stories.tsx`),
         {
-          componentName
+          componentName,
+          componentPath: component
         }
       );
     }
