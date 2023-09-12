@@ -1,8 +1,14 @@
-import <%=componentName %>, { Props } from './<%=componentName%>'
+import type { Meta, StoryObj } from '@storybook/react'
 
-export default {
-  title: '<%=componentPath%>',
-  component: <%=componentName %>,
+import <%=componentName %> from './<%=componentName%>'
+
+const meta: Meta<typeof <%=componentName%>> = {
+  component: <%=componentName%>,
+};
+
+export default meta
+type Story = StoryObj<typeof <%=componentName%>>
+
+export const Default: Story = {
+  args: {},
 }
-
-export const Default = ({ ...rest }: Props) => <<%=componentName%> {...rest} />
